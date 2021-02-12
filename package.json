@@ -1,0 +1,63 @@
+{
+  "name": "hear-iyobo-redditrain",
+  "version": "1.0.0",
+  "description": "A reddit feed-aggregator service",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "github"
+  },
+  "scripts": {
+    "test": "jest --config jestconfig.json",
+    "test:watch": "jest --config jestconfig.json --watch",
+    "build": "tsc",
+    "prepublish": "tsc && npm test",
+    "dev": "npx nodemon --watch 'src/**/*' -e ts,tsx --exec ts-node src/index.ts",
+    "watch": "tsc -w",
+    "lint": "eslint . --fix --ext .ts",
+    "start": "node dist/index.js",
+    "migrate:up": "mikro-orm migration:up"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "author": "Iyobo Eki",
+  "license": "MIT",
+  "dependencies": {
+    "@hapi/boom": "^9.1.1",
+    "@mikro-orm/core": "^4.4.2",
+    "@mikro-orm/sqlite": "^4.4.2",
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.13.1",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.18.0",
+    "koa": "^2.13.1",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^10.0.0",
+    "koa-ts-controllers": "^2.3.0",
+    "lodash": "^4.17.20",
+    "reddit": "^1.2.1",
+    "reflect-metadata": "^0.1.13"
+  },
+  "peerDependencies": {},
+  "devDependencies": {
+    "@types/jest": "^26.0.20",
+    "@types/lodash": "^4.14.136",
+    "@types/node": "^14.14.22",
+    "@typescript-eslint/eslint-plugin": "^4.14.1",
+    "@typescript-eslint/parser": "^4.14.1",
+    "jest": "^24.8.0",
+    "mikro-orm": "^4.4.2",
+    "supertest": "^4.0.2",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^9.1.1",
+    "typescript": "^3.5.3"
+  },
+  "mikro-orm": {
+    "useTsNode": true,
+    "configPaths": [
+      "./src/data/DBConfig.ts",
+      "./dist/data/DBConfig.js"
+    ]
+  }
+}
