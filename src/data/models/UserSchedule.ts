@@ -11,7 +11,10 @@ export class UserSchedule {
   user!: User | number;
 
   @Property()
-  time: string;
+  hour = 8;
+
+  @Property()
+  minute = 0;
 
   @Property()
   timezone = "America/Chicago";
@@ -20,9 +23,10 @@ export class UserSchedule {
   disabled = false;
 
 
-  constructor(user: User | number, time: string, timezone: string) {
+  constructor(user: User | number, hour: number, minute: number, timezone: string) {
     this.user = user;
-    this.time = time;
+    this.hour = hour;
+    this.minute = minute;
     this.timezone = timezone;
   }
 

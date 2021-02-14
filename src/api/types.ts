@@ -1,6 +1,7 @@
-import {IsArray, IsBoolean, IsOptional, IsString} from 'class-validator';
+import {IsArray, IsBoolean, IsNumber, IsNumberString, IsOptional, IsString} from 'class-validator';
 import {IsTimezone} from '../util/validators/IsTimezone';
 import {IsCustom} from '../util/validators/IsCustom';
+import {Type} from 'koa-ts-controllers';
 
 
 export class CreateUserParams {
@@ -10,8 +11,11 @@ export class CreateUserParams {
   @IsString()
   lastName: string;
 
-  @IsString()
-  time = '8am';
+  @IsNumberString()
+  hour: number;
+
+  @IsNumberString()
+  minute: number;
 
   @IsString()
   @IsTimezone()
@@ -44,9 +48,15 @@ export class UpdateSubParams {
 
 export class UpdateScheduleParams {
 
+  @Type(() => Number)
   @IsOptional()
-  @IsString()
-  time?: string;
+  @IsNumber()
+  hour: number;
+
+  @Type(() => Number)
+  @IsOptional()
+  @IsNumber()
+  minute: number;
 
   @IsOptional()
   @IsString()

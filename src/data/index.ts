@@ -10,3 +10,11 @@ export const initializeDatabase = async ()=>{
 export const forkEntityManager = ()=>{
   return orm.em.fork();
 }
+
+/**
+ * For look ups only.
+ * For updates, use `forkEntityManager()`
+ */
+export const getMainEntityManager = ()=>{
+  return orm.em;
+}

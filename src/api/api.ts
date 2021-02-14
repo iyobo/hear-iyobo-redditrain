@@ -14,7 +14,11 @@ export async function launchAPI() {
     router,
     basePath: '/api',
     controllers: [UserController], // It is recommended to add controllers classes directly to this array, but you can also add glob strings
-    disableVersioning: true
+    disableVersioning: true,
+    validatorOptions: {
+      whitelist: true,
+      forbidNonWhitelisted: true
+    }
   });
 
   app.use(bodyParser());

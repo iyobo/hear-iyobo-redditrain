@@ -27,7 +27,7 @@ export class UserController {
 
 
     // schedule
-    const schedule = new UserSchedule(user, body.time, body.timezone);
+    const schedule = new UserSchedule(user, body.hour, body.minute, body.timezone);
 
     await em.persistAndFlush([user, schedule]);
     return user;
