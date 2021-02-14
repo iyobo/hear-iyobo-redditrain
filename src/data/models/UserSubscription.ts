@@ -2,21 +2,21 @@ import {Entity, ManyToOne, PrimaryKey, Property} from '@mikro-orm/core';
 import {User} from './User';
 
 @Entity()
-export class UserSubreddit {
+export class UserSubscription {
 
   @PrimaryKey()
   id!: number;
 
-  @ManyToOne(()=> User)
-  user: User;
+  @ManyToOne(() => User)
+  user: User | number;
 
   @Property()
-  subreddit: string;
+  sub: string;
 
 
-  constructor(user: User, subreddit: string) {
+  constructor(user: User | number, sub: string) {
     this.user = user;
-    this.subreddit = subreddit;
+    this.sub = sub;
   }
 
 }

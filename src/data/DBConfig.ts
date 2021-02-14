@@ -1,10 +1,10 @@
 import {User} from './models/User';
 import {Options} from '@mikro-orm/core';
-import {UserSubreddit} from './models/UserSubreddit';
+import {UserSubscription} from './models/UserSubscription';
 import {UserSchedule} from './models/UserSchedule';
 
 export default {
-  entities: [User, UserSubreddit, UserSchedule],
+  entities: [User, UserSubscription, UserSchedule],
   dbName: 'redditRainDB',
   type: 'sqlite',
   migrations: {

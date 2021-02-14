@@ -16,6 +16,7 @@
     "watch": "tsc -w",
     "lint": "eslint . --fix --ext .ts",
     "start": "node dist/index.js",
+    "migrate:create": "mikro-orm migration:create",
     "migrate:up": "mikro-orm migration:up"
   },
   "files": [
@@ -37,7 +38,8 @@
     "koa-ts-controllers": "^2.3.0",
     "lodash": "^4.17.20",
     "reddit": "^1.2.1",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "timezone-validator": "^1.0.3"
   },
   "peerDependencies": {},
   "devDependencies": {

@@ -1,5 +1,5 @@
 import {Collection, Entity, OneToMany, OneToOne, PrimaryKey, Property} from '@mikro-orm/core';
-import {UserSubreddit} from './UserSubreddit';
+import {UserSubscription} from './UserSubscription';
 import {UserSchedule} from './UserSchedule';
 
 @Entity()
@@ -14,11 +14,11 @@ export class User {
   @Property()
   lastName: string;
 
-  @OneToOne()
-  schedule?: UserSchedule;
+  @OneToOne(() => UserSchedule)
+  schedule?: UserSchedule | number;
 
-  @OneToMany(() => UserSubreddit, (userSub: UserSubreddit) => userSub.user)
-  subreddits = new Collection<UserSubreddit>(this);
+  @OneToMany(() => UserSubscription, (userSub: UserSubscription) => userSub.user)
+  subreddits = new Collection<UserSubscription>(this);
 
   constructor(firstName: string, lastName: string) {
     this.firstName = firstName;

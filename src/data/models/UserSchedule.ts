@@ -14,10 +14,10 @@ export class UserSchedule {
   time: string;
 
   @Property()
-  timezone: string;
+  timezone = "America/Chicago";
 
   @Property()
-  disabled: boolean;
+  disabled = false;
 
 
   constructor(user: User | number, time: string, timezone: string) {

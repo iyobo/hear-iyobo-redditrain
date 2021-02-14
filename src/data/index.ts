@@ -7,6 +7,6 @@ export const initializeDatabase = async ()=>{
 
 }
 
-export const newOrmFork = ()=>{
+export const forkEntityManager = ()=>{
   return orm.em.fork();
 }
