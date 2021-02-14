@@ -1,13 +1,20 @@
 import dotenv from 'dotenv';
+dotenv.config();
 import {launchAPI} from './api/api';
 import {initializeDatabase} from './data';
-import {broadcastFeed} from './jobs/BroadcastFeed';
+import {userFeedJob} from './jobs/UserFeedJob';
+import {initializeReddit} from './util/reddit';
 
-dotenv.config();
 
 console.log('Initializing Hear-Iyobo RedditRain...');
 (async function () {
-  await initializeDatabase();
-  await broadcastFeed.initJobs();
-  await launchAPI();
+  try {
+    await initializeDatabase();
+    await initializeReddit();
+    await userFeedJob.initJobs();
+    await launchAPI();
+  }
+  catch(err){
+    console.error('[Launch Error] Could not start Service: ',err)
+  }
 })()

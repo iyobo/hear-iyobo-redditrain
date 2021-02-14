@@ -68,3 +68,4 @@ export class UpdateScheduleParams {
   disabled? = false;
 
 }
+

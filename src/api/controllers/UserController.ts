@@ -4,6 +4,7 @@ import {User} from '../../data/models/User';
 import {CreateUserParams, UpdateScheduleParams, UpdateSubParams, UpdateUserParams} from '../types';
 import {UserSubscription} from '../../data/models/UserSubscription';
 import {UserSchedule} from '../../data/models/UserSchedule';
+import {userFeedJob} from '../../jobs/UserFeedJob';
 
 @Controller('/user')
 export class UserController {
@@ -79,7 +80,11 @@ export class UserController {
     const em = forkEntityManager();
     const repo = em.getRepository(UserSchedule);
 
-    return await repo.nativeUpdate({user: userId}, body);
+    await repo.nativeUpdate({user: userId}, body);
+    const job = await repo.findOne({id: userId});
+
+    return await userFeedJob.upsertJob(job)
+
   }
 
 }
