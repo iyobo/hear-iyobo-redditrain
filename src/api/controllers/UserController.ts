@@ -10,7 +10,7 @@ import {userFeedJob} from '../../jobs/UserFeedJob';
 export class UserController {
 
   @Get('/')
-  async getUsers() {
+  async getUsers(): Promise<User[]> {
     const em = forkEntityManager();
     const users = em.getRepository(User);
 
@@ -18,24 +18,32 @@ export class UserController {
   }
 
   @Post('/')
-  async createUser(@Body({required: true}) body: CreateUserParams) {
+  async createUser(@Body({required: true}) input: CreateUserParams) {
     const em = forkEntityManager();
 
-    const user = new User(body.firstName, body.lastName);
+    const user = new User(input.firstName, input.lastName);
 
     // subreddits
-    body.subs?.forEach((it) => user.subreddits.add(new UserSubscription(user, it)));
+    input.subs?.forEach((it) => user.subreddits.add(new UserSubscription(user, it)));
 
 
     // schedule
-    const schedule = new UserSchedule(user, body.hour, body.minute, body.timezone);
+    const schedule = new UserSchedule(user, input.hour, input.minute, input.timezone);
 
     await em.persistAndFlush([user, schedule]);
     return user;
   }
 
+  @Get('/:userId')
+  async getUser(@Params('userId') userId: number): Promise<User> {
+    const em = forkEntityManager();
+    const users = em.getRepository(User);
+
+    return users.findOne({id: userId});
+  }
+
   @Put('/:userId')
-  async updateUser(@Params('userId') userId: number, @Body() body: UpdateUserParams) {
+  async updateUser(@Params('userId') userId: number, @Body() body: UpdateUserParams): Promise<User[]> {
     const em = forkEntityManager();
     const users = em.getRepository(User);
 
